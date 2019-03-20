@@ -4,18 +4,19 @@ output: html_notebook
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(include = TRUE)
 ```
+
+訂單的高峰期
+
 ```{r}
 orders <- read.csv("Orders.csv")
-
 date = orders$DateId
 quantity = orders$Quantity
 unitprice = orders$UnitPrice
 ismajor = orders$IsMajor
 result = vector(mode = "numeric", length = 1)
 decider = date[1]
-decider
 inputID = 1
 for(i in 1:length(date))
 {
@@ -34,5 +35,16 @@ for(i in 1:length(date))
   
 }
 
-plot(result,type = "l")
+
+plot(result,type = "l",xlab = "days",ylab  = "dollars")
+
 ```
+
+status
+```{r}
+status = orders$StatusDef
+pie(table(status),labels = paste(c("cancel_","CreditCheckFail_","Finish_","Overdue_","ReturnGoods_","WaitingToShipping_"),round(prop.table(table(status))*100),"%",sep = ""))
+
+
+
+```　
