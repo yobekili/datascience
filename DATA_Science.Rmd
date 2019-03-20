@@ -1,0 +1,38 @@
+---
+title: "Untitled"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+orders <- read.csv("Orders.csv")
+
+date = orders$DateId
+quantity = orders$Quantity
+unitprice = orders$UnitPrice
+ismajor = orders$IsMajor
+result = vector(mode = "numeric", length = 1)
+decider = date[1]
+decider
+inputID = 1
+for(i in 1:length(date))
+{
+  if(date[i] == decider)
+  {
+    result[inputID] = result[inputID] + unitprice[i] * quantity[i]
+  }
+  else
+  {
+    inputID = inputID + 1
+    decider = date[i]
+    result[inputID] = 0
+    result[inputID] = result[inputID] + unitprice[i] * quantity[i]
+  }
+  
+  
+}
+
+plot(result,type = "l")
+```
